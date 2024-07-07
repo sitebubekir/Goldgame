@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gold Game</title>
+</head>
+<body>
+<h1>Gold Game</h1>
+<table border="1">
+    <tr th:each="row : ${board}">
+        <td th:each="cell : ${row}">
+            <span th:text="${cell.gold}">0</span>
+        </td>
+    </tr>
+</table>
+<p>Player A: <span th:text="${playerA.gold}">0</span> gold</p>
+<p>Player B: <span th:text="${playerB.gold}">0</span> gold</p>
+<form th:if="!${gameOver}" action="/move" method="post">
+    <button type="submit" name="playerType" value="A">Player A Move</button>
+    <button type="submit" name="playerType" value="B">Player B Move</button>
+</form>
+<form action="/restart" method="post">
+    <button type="submit">Restart Game</button>
+</form>
+<div th:if="${gameOver}">
+    <p>Game Over!</p>
+    <h2>Game Summary</h2>
+    <pre th:text="${summary}"></pre>
+</div>
+</body>
+</html>
